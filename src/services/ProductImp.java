@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,6 +28,8 @@ public class ProductImp implements ProductInt {
 
 	@Override
 	public Product getProductBySKU(String sku) {
+		Product product = null;
+		
 		BufferedReader br = null;
 		
 		String token = "xq0o8r3bkuvlf66xv5pmpwp8jax9vvvv";
@@ -48,34 +51,42 @@ public class ProductImp implements ProductInt {
 			//Gets the response from the call
 			HttpResponse response = client.execute(request);
 			
-			System.out.println("Response: " + response);
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+	        
+	        Document doc = dBuilder.parse(response.getEntity().getContent());
+	        
 			
-			HttpEntity entity = response.getEntity();
-			
-			//using EntityUtils to read the xml file
-			/*System.out.println("Entity: " + entity + "\n");
-			String content = EntityUtils.toString(entity);
-			System.out.println(content);*/
-			
-			//checks if entity is not null
-			if(entity != null) {
-				System.out.println("entity is not null");
-				
-				//using bufferedReader to read the response
-				br = new BufferedReader(new InputStreamReader(entity.getContent()));
-				
-				String line = "";
-				
-				while((line = br.readLine()) != null) {
-					System.out.println(line);
-				}
-				
-			} else {
-				System.out.println("entity is null");
-			}
-			
+	        int id = Integer.parseInt(doc.getElementsByTagName("id").item(0).getTextContent());
+	        String productsku = doc.getElementsByTagName("sku").item(0).getTextContent();
+	    	String name = doc.getElementsByTagName("name").item(0).getTextContent();
+	    	int attribute_set = Integer.parseInt(doc.getElementsByTagName("attribute_set").item(0).getTextContent());
+	    	double price = Double.parseDouble(doc.getElementsByTagName("price").item(0).getTextContent());
+	    	String product_type = doc.getElementsByTagName("product_type").item(0).getTextContent();
+	    	
+	    	NodeList category_id_node_list = doc.getElementsByTagName("category_id");
+	    	LinkedList<Integer> category_id = new LinkedList<Integer>();
+	    	for (int i = 0; i < category_id_node_list.getLength(); i++) {
+	    		category_id.add(Integer.parseInt(category_id_node_list.item(i).getTextContent()));
+	    	}
+	    	
+	    	String image_file = doc.getElementsByTagName("file").item(0).getTextContent();
+	    	
+	    	
+	    	product = new Product(id, productsku, name, attribute_set, price, product_type, category_id.toArray(),image_file);
+	    	
+	        
 		} catch (IOException e) {
 			System.out.println("couldnt execute request");
+			e.printStackTrace();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (UnsupportedOperationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
@@ -84,7 +95,8 @@ public class ProductImp implements ProductInt {
 				e.printStackTrace();
 			}
 		}
-		return null;
+		
+		return product;
 	}
 
 	@Override

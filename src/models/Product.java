@@ -8,14 +8,12 @@ public class Product {
 	private int attribute_set;
 	private double price;
 	private String product_type;
-	private int[] category_id;
+	private Object[] category_id;
 	private String image_file;
-	private String description;
-	private int[] configurable_product_links;
 	
 	
 	public Product(int id, String sku, String name, int attribute_set, double price, String product_type,
-			int[] category_id, String image_file, String description, int[] configurable_product_links) {
+			Object[] category_id, String image_file) {
 		this.id = id;
 		this.sku = sku;
 		this.name = name;
@@ -24,8 +22,6 @@ public class Product {
 		this.product_type = product_type;
 		this.category_id = category_id;
 		this.image_file = image_file;
-		this.description = description;
-		this.configurable_product_links = configurable_product_links;
 	}
 	
 	
@@ -47,17 +43,11 @@ public class Product {
 	public String getProduct_type() {
 		return product_type;
 	}
-	public int[] getCategory_id() {
+	public Object[] getCategory_id() {
 		return category_id;
 	}
 	public String getImage_file() {
 		return image_file;
-	}
-	public String getDescription() {
-		return description;
-	}
-	public int[] getConfigurable_product_links() {
-		return configurable_product_links;
 	}
 	public void setId(int id) {
 		this.id = id;
@@ -77,17 +67,11 @@ public class Product {
 	public void setProduct_type(String product_type) {
 		this.product_type = product_type;
 	}
-	public void setCategory_id(int[] category_id) {
+	public void setCategory_id(Object[] category_id) {
 		this.category_id = category_id;
 	}
 	public void setImage_file(String image_file) {
 		this.image_file = image_file;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public void setConfigurable_product_links(int[] configurable_product_links) {
-		this.configurable_product_links = configurable_product_links;
 	}
 	
 }
