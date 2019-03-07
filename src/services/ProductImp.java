@@ -30,8 +30,6 @@ public class ProductImp implements ProductInt {
 	public Product getProductBySKU(String sku) {
 		Product product = null;
 		
-		BufferedReader br = null;
-		
 		String token = "xq0o8r3bkuvlf66xv5pmpwp8jax9vvvv";
 		String url = "http://localhost/magento2/rest/V1/products/" + sku;
 		
@@ -88,12 +86,6 @@ public class ProductImp implements ProductInt {
 		} catch (SAXException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			try {
-				br.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		
 		return product;
