@@ -12,4 +12,6 @@ public interface ProductInt {
 	public LinkedHashSet<String> getAllProductSKU();
 	
 	public LinkedHashMap<String, Product> getAllSKUAndProduct();
+
+	LinkedHashMap<String, Product> getFirstFiveSKUAndProduct();
 }

@@ -1,4 +1,11 @@
+<%@page import="java.util.Set"%>
+<%@page import="models.Product"%>
+<%@page import="java.util.LinkedHashMap"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% LinkedHashMap<String, Product> firstFiveProducts = (LinkedHashMap<String, Product>) request.getAttribute("firstFiveProducts"); %>
+
+<% Object[] productKeyArray = firstFiveProducts.keySet().toArray(); %>
 
 <!DOCTYPE html>
 <html>
@@ -11,9 +18,19 @@
 		</header>
 		
 		<body>
-			
-			
-			
+			<div class="container">
+				<% for (int i = 0; i < productKeyArray.length; i++) { %>
+					<div class="item">
+						<img src="<%= firstFiveProducts.get(productKeyArray[i]).getImage_file() %>" class="productImage"/>
+						<div class="productName">
+							<%= firstFiveProducts.get(productKeyArray[i]).getName() %>
+						</div>
+						<div class="productPrice">
+							<%= firstFiveProducts.get(productKeyArray[i]).getPrice() %>
+						</div>
+					</div>
+				<% } %>			
+			</div>	
 		</body>
 		
 		<footer class="footer">
