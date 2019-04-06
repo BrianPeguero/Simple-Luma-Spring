@@ -18,6 +18,9 @@
 		</header>
 		
 		<body>
+			<div class="mainWelcomePage">
+				<img src="localhost/magento2/pub/media/wysiwyg/training/training-main.jpg"/>
+			</div>
 			<div class="container">
 				<% for (int i = 0; i < productKeyArray.length; i++) { %>
 					<div class="item">
