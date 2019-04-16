@@ -18,7 +18,7 @@
 		</header>
 		
 		<body>
-			<div class="mainWelcomePage">
+			<div class="mainWelcomeImage">
 				<img src="localhost/magento2/pub/media/wysiwyg/training/training-main.jpg"/>
 			</div>
 			<div class="container">
